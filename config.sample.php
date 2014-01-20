@@ -41,11 +41,11 @@ $re_captcha_key_private = "";
 /**
  * Default "from" email for mail sent within the PHP application.
  * To send emails you'll also need the swift_mailer which is included in 
- * the github repository as a merged sub-tree (the lib folder is the only part
- * that is downloaded. For the full documentation and such visit 
- * https://github.com/swiftmailer/swiftmailer
+ * the github repository as a merged sub-tree. For the full documentation
+ * visit https://github.com/swiftmailer/swiftmailer
  */
 $reply_email = "no-reply@mysite.com";
+$swift_mailer_path = "shared_functions/swiftmailer/lib/swift_required.php";
 
 
 

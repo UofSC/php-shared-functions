@@ -245,7 +245,8 @@ function file_icon($ext){
 * @author Craig Spurrier 
 **/ 
 function send_email($to,$from,$subject='',$text='',$html=''){ 
-    require_once('swift_mailer/swift_required.php'); // Mailer library 
+    global $swift_mailer_path;
+    require_once($swift_mailer_path); // Mailer library 
     if(is_array($to)){ 
         foreach($to AS $key=>$value){ 
             if(is_empty($value)){ 
