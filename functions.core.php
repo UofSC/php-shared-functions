@@ -14,8 +14,10 @@
 */ 
 function init(){ 
     global $session_name; 
-     
-    session_start();  
+    
+    if(session_id() === "") {
+        session_start();  
+    }
     $GLOBALS['errors'] = Array(); //Create a global array in which we can store error messages 
     $GLOBALS['login_errors'] = Array(); //Create a global array in which we can store login related error messages 
 
@@ -285,7 +287,30 @@ function send_email($to,$from,$subject='',$text='',$html=''){
          
         $result = $mailer->send($message); 
     } 
+}
 
+/**
+ * Sends a message with swiftmailer through google mail
+ * @param type $to
+ * @param type $subject
+ * @param type $message
+ */
+function send_gmail($to, $subject, $message) {
+    global $google_username, $google_password, $swift_mailer_path, $email_signature;
+    require_once($swift_mailer_path); // Mailer library 
+    
+    $transporter = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, 'ssl')
+        ->setUsername($google_username)
+        ->setPassword($google_password);
+
+    $mailer = Swift_Mailer::newInstance($transporter);
+        $msg = Swift_Message::newInstance(); 
+        $msg->setSubject($subject); 
+        $msg->setFrom($google_username . "@gmail.com"); 
+        $msg->setTo($to); 
+        $msg->setBody($message . "<p>$email_signature</p>", 'text/html'); 
+         
+     $mailer->send($msg);
 }
 
 /** 
